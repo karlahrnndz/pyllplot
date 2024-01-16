@@ -21,7 +21,7 @@ dependencies = [
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
-dev = ["check-manifest", "bumpver", "pytest", "flake8", "black", "mypy"]
+dev = ["check-manifest", "bumpver", "pytest", "flake8", "black", "mypy", "pre-commit"]
 
 [project.urls]
 Homepage = "https://github.com/karlahrnndz/quickd3"
@@ -41,3 +41,10 @@ push = true
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
 "quickd3/__init__.py" = ["{version}"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203, W503"
+
+[tool.black]
+line-length = 88
