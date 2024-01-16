@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rquickd3"
-version = "2024.1.1"
+version = "2024.1.0"
 description = ""
 readme = "README.md"
 authors = [{ name = "Karla Hernandez"}]
@@ -21,13 +21,13 @@ dependencies = [
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
-dev = ["check-manifest", "bumpver", "pytest"]
+dev = ["check-manifest", "bumpver", "pytest", "flake8", "black", "mypy"]
 
 [project.urls]
 Homepage = "https://github.com/karlahrnndz/quickd3"
 
 [tool.bumpver]
-current_version = "2024.1.1"
+current_version = "2024.1.0"
 version_pattern = "YYYY.MM.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
