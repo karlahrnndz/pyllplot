@@ -3,10 +3,12 @@ repos:
     rev: v4.5.0
     hooks:
       - id: trailing-whitespace
+
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
       - id: black
+
   - repo: https://github.com/PyCQA/flake8
     rev: 7.0.0
     hooks:
