@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+
+<script>
+    // Replace this JSON data with your actual data
+    const jsonData = {{ json_data | tojson }};
+
+    // Function to draw the chart
+    function drawChart() {
+        // Create an SVG container
+        const svg = d3.select('body').append('svg')
+            .attr('width', 400)  // Replace with the desired width
+            .attr('height', 200);  // Replace with the desired height
+
+        // Extract unique labels from the data
+        const uniqueLabels = Array.from(new Set(jsonData.map(d => d.label)));
+
+        // Create a color scale for different labels
+        const colorScale = d3.scaleOrdinal()
+            .domain(uniqueLabels)
+            .range(d3.schemeCategory10);  // You can use a different color scheme
+
+        // Create scales for x and y axes
+        const xScale = d3.scaleLinear()
+            .domain([d3.min(jsonData, d => d.t), d3.max(jsonData, d => d.t)])
+            .range([0, 400]);  // Adjust the range based on the SVG width
+
+        const yScale = d3.scaleLinear()
+            .domain([0, d3.max(jsonData, d => d.w)])
+            .range([200, 0]);  // Adjust the range based on the SVG height
+
+        // Loop through each label and draw the area chart
+        uniqueLabels.forEach(label => {
+            const labelData = jsonData.filter(d => d.label === label);
+
+            // Define the area function with interpolation
+            const area = d3.area()
+                .x(d => xScale(d.t))
+                .y0(200)  // Set to the SVG height
+                .y1(d => yScale(d.w))
+                .curve(d3.curveCatmullRom.alpha(0.8));  // Catmull-Rom interpolation with alpha value
+
+            // Append the area path to the SVG with different colors and opacity for each label
+            svg.append('path')
+                .datum(labelData)
+                .attr('fill', colorScale(label))
+                .attr('fill-opacity', 0.8)  // Adjust the opacity value
+                .attr('d', area);
+        });
+    }
+
+    // Call the drawChart function when the DOM is ready
+    document.addEventListener("DOMContentLoaded", drawChart);
+</script>
+
+</body>
+</html>
