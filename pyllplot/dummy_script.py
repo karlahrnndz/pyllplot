@@ -13,7 +13,7 @@ data = pd.DataFrame(
     }
 )
 
-stackorder_plot = SortedStream(
+sorted_stream = SortedStream(
     data,
     x_col="my_x",
     y_col="my_y",
@@ -22,4 +22,4 @@ stackorder_plot = SortedStream(
     centered=False,
     ascending=False,
 )
-stackorder_plot.plot()
+sorted_stream.plot()
