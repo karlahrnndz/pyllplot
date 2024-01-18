@@ -44,12 +44,15 @@
     svg.append("g")
       .attr("class", "grid")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScale).tickSize(-height).tickFormat(""));
+      .call(d3.axisBottom(xScale).tickSize(-height).tickFormat(""))
+      .selectAll(".tick line")
+      .style("stroke-width", 0.2);
 
     // Add gridlines for the y-axis
     svg.append("g")
       .attr("class", "grid")
-      .call(d3.axisLeft(yScale).tickSize(-width).tickFormat(""));
+      .call(d3.axisLeft(yScale).tickSize(-width).tickFormat(""))
+      .style("stroke-width", 0.2);
 
     // Define custom color palette
     var customColors = ['#283250', '#b33236', '#d5403e', '#eb5140'];
@@ -72,7 +75,7 @@
         .data([label.values])
         .attr("class", "area")
         .attr("d", area)
-        .style("fill", function() { return getColorWithOpacity(colorScale(label.key), 0.8); });
+        .style("fill", function() { return getColorWithOpacity(colorScale(label.key), 1); });
 
       // Add labels on top of the areas
       var labelData = label.values[label.values.length - 1];
