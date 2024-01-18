@@ -4,7 +4,6 @@ import os
 
 FILEPATH = os.path.join("..", "output", "text.svg")
 
-
 data = pd.DataFrame(
     {
         "my_x": [1, 2, 3, 4, 1, 2, 3, 4],
