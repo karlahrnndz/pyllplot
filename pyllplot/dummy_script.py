@@ -2,7 +2,7 @@ from pyllplot import SortedStream
 import pandas as pd
 import os
 
-FILEPATH = os.path.join("..", "output", 'text.svg')
+FILEPATH = os.path.join("..", "output", "text.svg")
 
 
 data = pd.DataFrame(

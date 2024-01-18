@@ -105,9 +105,8 @@ class SortedStream(BasePlot):
         self.data["order"] = self.data.groupby(by=["x"]).cumcount()
 
     def make_plot(self, filepath=None, color_palette=None):
-
         # Determine the number of distinct labels
-        num_labels = len(self.data['label'].unique())
+        num_labels = len(self.data["label"].unique())
 
         # Use the specified color palette or the default color-blind-safe palette
         if color_palette is None:
@@ -117,25 +116,31 @@ class SortedStream(BasePlot):
         custom_cmap = ListedColormap(color_palette)
 
         # Separate data for each label
-        labels = self.data['label'].unique()
+        labels = self.data["label"].unique()
 
         # Plotting
         fig, ax = plt.subplots()
 
         for i, label in enumerate(labels):
-            subset = self.data[self.data['label'] == label]
+            subset = self.data[self.data["label"] == label]
 
-            if len(subset['x'].unique()) >= 2:
+            if len(subset["x"].unique()) >= 2:
                 # Use PchipInterpolator for smooth, monotonic fit
-                f_ub = PchipInterpolator(subset['x'], subset['ub'])
-                f_lb = PchipInterpolator(subset['x'], subset['lb'])
+                f_ub = PchipInterpolator(subset["x"], subset["ub"])
+                f_lb = PchipInterpolator(subset["x"], subset["lb"])
 
-                x_smooth = np.linspace(subset['x'].min(), subset['x'].max(), 100)
+                x_smooth = np.linspace(subset["x"].min(), subset["x"].max(), 100)
                 ub_smooth = f_ub(x_smooth)
                 lb_smooth = f_lb(x_smooth)
 
                 # Plot filled area with custom color
-                ax.fill_between(x_smooth, lb_smooth, ub_smooth, label=f'{label}', color=custom_cmap(i))
+                ax.fill_between(
+                    x_smooth,
+                    lb_smooth,
+                    ub_smooth,
+                    label=f"{label}",
+                    color=custom_cmap(i),
+                )
 
         # Customize the plot
         ax.set_xlabel(self.x)
@@ -144,10 +149,10 @@ class SortedStream(BasePlot):
 
         # Create filepath if not provided
         if filepath is None:
-            filepath = os.path.join(os.getcwd(), 'sorted_stream.svg')
+            filepath = os.path.join(os.getcwd(), "sorted_stream.svg")
 
         # Save the plot as an SVG file
-        plt.savefig(filepath, format='svg')
+        plt.savefig(filepath, format="svg")
 
         # Show the plot
         plt.show()
