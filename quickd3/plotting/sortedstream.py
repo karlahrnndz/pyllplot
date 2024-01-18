@@ -1,11 +1,11 @@
-from .base_plot import BaseD3Plot
+from .base import BaseD3Plot
 import pandas as pd
 import numpy as np
 import os
 from jinja2 import Environment, FileSystemLoader
 
 
-class StackOrderD3Plot(BaseD3Plot):
+class SortedStreamD3Plot(BaseD3Plot):
     def __init__(
         self,
         data,
@@ -15,7 +15,7 @@ class StackOrderD3Plot(BaseD3Plot):
         pad=0,
         centered=False,
         time_series=True,
-        ascending=True,
+        ascending=False,
     ):
         super().__init__(data)
         self.x = x_col
@@ -49,16 +49,17 @@ class StackOrderD3Plot(BaseD3Plot):
         # Add "order" column to data, indicating the vertical order in which to plot
         self.add_order()
 
-        # Add lb and ub columns
+        # Add lb and lb columns
         self.data["ub"] = (
             self.data.groupby(by="x")["y"].cumsum() + self.pad * self.data["order"]
         )
         self.data["lb"] = (
-            self.data["ub"].shift(periods=1, fill_value=-self.pad) + self.pad
+            self.data.groupby(by="x")["ub"].shift(periods=1, fill_value=-self.pad)
+            + self.pad
         )
 
         # Vertically center, if required
-        if self.centered:
+        if self.centered:  # TODO – check
             # Compute center of all y-values for each x-value
             self.data["y_center"] = self.data.groupby(by="x").transform(
                 lambda group: group["ub"].max() - group["lb"].min()
@@ -70,10 +71,6 @@ class StackOrderD3Plot(BaseD3Plot):
 
             # Drop unnecessary column
             self.data.drop(columns=["y_center"], inplace=True)
-
-        formatted_data = self.data.to_json(orient="records")
-
-        return formatted_data
 
     def add_order(self):
         if self.time_series:  # TODO – check this section
@@ -135,9 +132,9 @@ class StackOrderD3Plot(BaseD3Plot):
         self.data["order"] = self.data.groupby(by=["x"]).cumcount()
 
     def get_template_kind(self):
-        return "stackorder"
+        return "sortedstream"
 
-    def render_template(self, json_path, kind):
-        env = Environment(loader=FileSystemLoader(os.path.join("quickd3", "templates")))
+    def render_template(self, json_filename, kind):
+        env = Environment(loader=FileSystemLoader(os.path.join("templates")))
         template = env.get_template(f"{kind}_template.html")
-        return template.render(json_path=json_path)
+        return template.render(json_path=json_filename)
