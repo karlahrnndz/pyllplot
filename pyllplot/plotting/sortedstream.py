@@ -104,7 +104,7 @@ class SortedStream(BasePlot):
         # Add order column
         self.data["order"] = self.data.groupby(by=["x"]).cumcount()
 
-    def make_plot(self, filepath=None, color_palette=None):
+    def make_plot(self, filepath=None, color_palette=None, title=None):
         # Determine the number of distinct labels
         num_labels = len(self.data["label"].unique())
 
@@ -145,6 +145,10 @@ class SortedStream(BasePlot):
         # Customize the plot
         ax.set_xlabel(self.x)
         ax.set_ylabel(self.y)
+
+        if title is not None:
+            ax.set_title(title)
+
         ax.legend()
 
         # Create filepath if not provided

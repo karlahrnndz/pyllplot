@@ -21,4 +21,4 @@ sorted_stream = SortedStream(
     centered=False,
     ascending=False,
 )
-sorted_stream.plot(filepath=None, color_palette=None)
+sorted_stream.plot(filepath=None, color_palette=None, title=None)
