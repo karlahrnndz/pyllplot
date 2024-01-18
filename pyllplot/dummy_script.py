@@ -1,8 +1,8 @@
-from quickd3 import SortedStreamD3Plot
+from pyllplot import SortedStream
 import pandas as pd
 import os
 
-OUTPUT_DIR = os.path.join("..", "output")
+FILEPATH = os.path.join("..", "output", 'text.svg')
 
 
 data = pd.DataFrame(
@@ -13,12 +13,13 @@ data = pd.DataFrame(
     }
 )
 
-stackorder_plot = SortedStreamD3Plot(
+stackorder_plot = SortedStream(
     data,
     x_col="my_x",
     y_col="my_y",
     label_col="my_label",
-    pad=0.05,
+    pad=0,
+    centered=False,
+    ascending=False,
 )
-output_path = stackorder_plot.plot(output_dir=OUTPUT_DIR)
-print(f"\nSortedStream output location: {output_path}")
+stackorder_plot.plot()

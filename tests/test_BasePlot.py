@@ -1,6 +1,6 @@
 import pytest
 
-# from quickd3.plotting.base_plot import D3Plot
+# from pyllplot.plotting.base_plot import D3Plot
 
 
 @pytest.fixture
