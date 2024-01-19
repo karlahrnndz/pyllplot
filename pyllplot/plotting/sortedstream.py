@@ -121,6 +121,9 @@ class SortedStream(BasePlot):
         # Plotting
         fig, ax = plt.subplots(figsize=figsize)
 
+        x_numeric_indices = None
+        subset = None
+
         for i, label in enumerate(labels):
             subset = self.data[self.data["label"] == label]
 
@@ -141,7 +144,6 @@ class SortedStream(BasePlot):
                 x_smooth_numeric_indices = np.linspace(
                     x_numeric_indices.min(), x_numeric_indices.max(), 100
                 )
-                # x_smooth = np.linspace(subset["x"].min(), subset["x"].max(), 100)
 
                 ub_smooth = f_ub(x_smooth_numeric_indices)
                 lb_smooth = f_lb(x_smooth_numeric_indices)
