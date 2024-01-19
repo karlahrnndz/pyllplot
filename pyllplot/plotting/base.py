@@ -6,13 +6,13 @@ class BasePlot(ABC):
         self.data = data
 
     @abstractmethod
-    def format_data(self):
+    def _format_data(self):
         pass
 
     @abstractmethod
-    def make_plot(self, filepath=None, color_palette=None, title=None, figsize=None):
+    def _make_plot(self, filepath=None, color_palette=None, title=None, figsize=None):
         pass
 
     def plot(self, filepath=None, color_palette=None, title=None, figsize=None):
-        self.format_data()
-        self.make_plot(filepath, color_palette, title, figsize)
+        self._format_data()
+        self._make_plot(filepath, color_palette, title, figsize)

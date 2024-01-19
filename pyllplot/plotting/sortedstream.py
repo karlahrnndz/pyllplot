@@ -27,7 +27,7 @@ class SortedStream(BasePlot):
         self.centered = centered
         self.ascending = ascending
 
-    def format_data(self):
+    def _format_data(self):
         if not isinstance(self.data, pd.DataFrame):
             raise ValueError("`data` must be a pandas dataframe.")
 
@@ -48,7 +48,7 @@ class SortedStream(BasePlot):
         self.data["y"] = self.data["y"].fillna(0)
 
         # Add "order" column to data, indicating the vertical order in which to plot
-        self.add_order()
+        self._add_order()
 
         # Add lb and lb columns
         self.data["ub"] = (
@@ -60,20 +60,17 @@ class SortedStream(BasePlot):
         )
 
         # Vertically center, if required
-        if self.centered:  # TODO – check
+        if self.centered:
             # Compute center of all y-values for each x-value
-            self.data["y_center"] = self.data.groupby(by="x").transform(
-                lambda group: group["ub"].max() - group["lb"].min()
-            )
+            ub_max_srs = self.data.groupby("x")["ub"].transform("max")
+            lb_min_srs = self.data.groupby("x")["lb"].transform("min")
+            y_center_srs = (ub_max_srs - lb_min_srs) / 2
 
             # Shift ub and lb to center
-            self.data["ub"] = self.data["ub"] - self.data["y_center"]
-            self.data["lb"] = self.data["lb"] - self.data["y_center"]
+            self.data["ub"] = self.data["ub"] - y_center_srs
+            self.data["lb"] = self.data["lb"] - y_center_srs
 
-            # Drop unnecessary column
-            self.data.drop(columns=["y_center"], inplace=True)
-
-    def add_order(self):
+    def _add_order(self):
         self.data.sort_values(
             by=["x", "y"],
             ascending=[True, self.ascending],
@@ -81,17 +78,30 @@ class SortedStream(BasePlot):
             ignore_index=True,
         )
 
+        # Sort groups one by one, to prevent switching order when ties occur
         last_group = None
         sorted_gps = []
         for _, group_df in self.data.groupby(by="x"):
             duplicates = group_df.duplicated(subset="y", keep=False)
             if duplicates.any() and last_group is not None:
                 dup_df = group_df[duplicates].copy()
-                dup_labels = dup_df["label"].unique()
-                sorted_indices = np.argsort(
-                    last_group.loc[last_group["label"].isin(dup_labels), "label"]
-                )
-                dup_df_sorted = dup_df.iloc[sorted_indices].reset_index(drop=True)
+                dup_labels = dup_df[
+                    "label"
+                ]  # Labels are already unique within the group
+
+                # Create two pandas Series with the same values but one is shuffled
+                last_labels = last_group.loc[
+                    last_group["label"].isin(dup_labels), "label"
+                ]
+
+                # Get the indices that would sort the original and shuffled series
+                indices_sort_d = np.argsort(dup_labels)
+                indices_sort_l = np.argsort(last_labels)
+
+                # Use the indices_sort_original to sort the indices_sort_shuffled
+                indices_to_sort = indices_sort_d.values[indices_sort_l.values]
+
+                dup_df_sorted = dup_df.iloc[indices_to_sort].reset_index(drop=True)
                 dup_df_sorted.index = dup_df.index
                 group_df.loc[dup_df.index] = dup_df_sorted
 
@@ -104,7 +114,7 @@ class SortedStream(BasePlot):
         # Add order column
         self.data["order"] = self.data.groupby(by=["x"]).cumcount()
 
-    def make_plot(self, filepath=None, color_palette=None, title=None, figsize=None):
+    def _make_plot(self, filepath=None, color_palette=None, title=None, figsize=None):
         # Determine the number of distinct labels
         num_labels = len(self.data["label"].unique())
 

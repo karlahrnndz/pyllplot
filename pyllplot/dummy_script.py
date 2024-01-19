@@ -35,7 +35,7 @@ data = pd.DataFrame(
             "2022-01-03",
             "2022-01-04",
         ],
-        "my_y": [3, 3, 1, 3, 2, 2, 2, 2],
+        "my_y": [1, 1, 1, 1, 2, 1, 1, 1],
         "my_label": ["a", "a", "a", "a", "b", "b", "b", "b"],
     }
 )
@@ -47,6 +47,6 @@ sorted_stream = SortedStream(
     label_col="my_label",
     pad=0,
     centered=False,
-    ascending=False,
+    ascending=True,
 )
 sorted_stream.plot(filepath=None, color_palette=None, title=None, figsize=None)
