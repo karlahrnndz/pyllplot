@@ -10,9 +10,9 @@ class BasePlot(ABC):
         pass
 
     @abstractmethod
-    def make_plot(self, filepath=None, color_palette=None, title=None):
+    def make_plot(self, filepath=None, color_palette=None, title=None, figsize=None):
         pass
 
-    def plot(self, filepath=None, color_palette=None, title=None):
+    def plot(self, filepath=None, color_palette=None, title=None, figsize=None):
         self.format_data()
-        self.make_plot(filepath, color_palette, title)
+        self.make_plot(filepath, color_palette, title, figsize)

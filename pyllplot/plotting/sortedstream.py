@@ -104,7 +104,7 @@ class SortedStream(BasePlot):
         # Add order column
         self.data["order"] = self.data.groupby(by=["x"]).cumcount()
 
-    def make_plot(self, filepath=None, color_palette=None, title=None):
+    def make_plot(self, filepath=None, color_palette=None, title=None, figsize=None):
         # Determine the number of distinct labels
         num_labels = len(self.data["label"].unique())
 
@@ -119,28 +119,45 @@ class SortedStream(BasePlot):
         labels = self.data["label"].unique()
 
         # Plotting
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=figsize)
 
         for i, label in enumerate(labels):
             subset = self.data[self.data["label"] == label]
 
             if len(subset["x"].unique()) >= 2:
-                # Use PchipInterpolator for smooth, monotonic fit
-                f_ub = PchipInterpolator(subset["x"], subset["ub"])
-                f_lb = PchipInterpolator(subset["x"], subset["lb"])
+                # Create a mapping between unique values in 'x' and their indices
+                x_mapping = {
+                    value: idx for idx, value in enumerate(sorted(subset["x"].unique()))
+                }
 
-                x_smooth = np.linspace(subset["x"].min(), subset["x"].max(), 100)
-                ub_smooth = f_ub(x_smooth)
-                lb_smooth = f_lb(x_smooth)
+                # Map 'x' to numeric indices
+                x_numeric_indices = subset["x"].map(x_mapping)
+
+                # Use PchipInterpolator for smooth, monotonic fit
+                f_ub = PchipInterpolator(x_numeric_indices, subset["ub"])
+                f_lb = PchipInterpolator(x_numeric_indices, subset["lb"])
+
+                # Generate a range of numeric values for x indices
+                x_smooth_numeric_indices = np.linspace(
+                    x_numeric_indices.min(), x_numeric_indices.max(), 100
+                )
+                # x_smooth = np.linspace(subset["x"].min(), subset["x"].max(), 100)
+
+                ub_smooth = f_ub(x_smooth_numeric_indices)
+                lb_smooth = f_lb(x_smooth_numeric_indices)
 
                 # Plot filled area with custom color
                 ax.fill_between(
-                    x_smooth,
+                    x_smooth_numeric_indices,
                     lb_smooth,
                     ub_smooth,
                     label=f"{label}",
                     color=custom_cmap(i),
                 )
+
+        # Set x-axis ticks to the original values of 'x'
+        ax.set_xticks(x_numeric_indices)
+        ax.set_xticklabels(subset["x"].unique())
 
         # Customize the plot
         ax.set_xlabel(self.x)
@@ -154,6 +171,12 @@ class SortedStream(BasePlot):
         # Create filepath if not provided
         if filepath is None:
             filepath = os.path.join(os.getcwd(), "sorted_stream.svg")
+
+        # Rotate x-axis labels by 45 degrees
+        plt.xticks(rotation=0)
+
+        # Adjust subplot parameters for a tight layout
+        plt.tight_layout()
 
         # Save the plot as an SVG file
         plt.savefig(filepath, format="svg")

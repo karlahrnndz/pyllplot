@@ -4,9 +4,37 @@ import os
 
 FILEPATH = os.path.join("..", "output", "text.svg")
 
+# data = pd.DataFrame(
+#     {
+#         "my_x": [1, 2, 3, 4, 1, 2, 3, 4],
+#         "my_y": [3, 3, 1, 3, 2, 2, 2, 2],
+#         "my_label": ["a", "a", "a", "a", "b", "b", "b", "b"],
+#     }
+# )
+
+# data = pd.DataFrame(
+#     {
+#         "my_x": pd.to_datetime(['2022-01-01 12:00:00', '2022-01-01 14:30:00',
+#                                 '2022-01-03 16:45:00', '2022-01-04 18:20:00',
+#                                 '2022-01-01 12:00:00', '2022-01-01 14:30:00',
+#                                 '2022-01-03 16:45:00', '2022-01-04 18:20:00']),
+#         "my_y": [3, 3, 1, 3, 2, 2, 2, 2],
+#         "my_label": ["a", "a", "a", "a", "b", "b", "b", "b"],
+#     }
+# )
+
 data = pd.DataFrame(
     {
-        "my_x": [1, 2, 3, 4, 1, 2, 3, 4],
+        "my_x": [
+            "2022-01-01",
+            "2022-01-02",
+            "2022-01-03",
+            "2022-01-04",
+            "2022-01-01",
+            "2022-01-02",
+            "2022-01-03",
+            "2022-01-04",
+        ],
         "my_y": [3, 3, 1, 3, 2, 2, 2, 2],
         "my_label": ["a", "a", "a", "a", "b", "b", "b", "b"],
     }
@@ -21,4 +49,4 @@ sorted_stream = SortedStream(
     centered=False,
     ascending=False,
 )
-sorted_stream.plot(filepath=None, color_palette=None, title=None)
+sorted_stream.plot(filepath=None, color_palette=None, title=None, figsize=None)
