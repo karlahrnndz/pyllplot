@@ -16,7 +16,10 @@ classifiers = [
 ]
 keywords = ["d3", "visualization", "infographic", "data science", "chart", "design"]
 dependencies = [
-    "html2text",
+    "scipy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
 ]
 requires-python = ">=3.9"
 
