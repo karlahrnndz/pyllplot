@@ -81,8 +81,6 @@ Examples
             data=data_dict, pad=0, centered=True, color_dict=None, smooth=True, interp_res=1000
         )
 
-        # custom_plot.fig is a plotly.graph_objects object containing the final visualization
-        # you can work with it like you would a normal plotly.graph_objects object:
         custom_plot.fig.show()
         pio.write_image(custom_plot.fig, file="sorted_stream.svg")
 
