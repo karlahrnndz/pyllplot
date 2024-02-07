@@ -1,49 +1,30 @@
-[build-system]
-requires      = ["setuptools>=69.0.3", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "pyllplot"
 version = "2024.1.0"
 description = ""
-readme = "README.md"
-authors = [{ name = "Karla Hernandez"}]
-license = { file = "LICENSE" }
-classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-]
+authors = ["Karla Hernandez"]
+license = "MIT"
 keywords = ["d3", "visualization", "infographic", "data science", "chart", "design"]
-dependencies = [
-    "scipy",
-    "pandas",
-    "matplotlib",
-    "seaborn",
-]
-requires-python = ">=3.9"
 
-[project.optional-dependencies]
-dev = ["check-manifest", "bumpver", "pytest", "flake8", "black", "pre-commit"]
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[project.urls]
-Homepage = "https://github.com/karlahrnndz/pyllplot.git"
+[tool.poetry.dependencies]
+python = "^3.9"
+plotly = "^5.10.0"
+pandas = "^2.2.0"
+scipy = "^1.12.0"
+colorlover = "^0.3.0"
+numpy = "^1.26.0"
 
-[tool.bumpver]
-current_version = "2024.1.0"
-version_pattern = "YYYY.MM.PATCH"
-commit_message = "bump version {old_version} -> {new_version}"
-tag_message = "{new_version}"
-tag_scope = "default"
-pre_commit_hook = ""
-post_commit_hook = ""
-commit = true
-tag = true
-push = true
-
-[tool.bumpver.file_patterns]
-"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
-"pyllplot/__init__.py" = ["{version}"]
+[tool.poetry.dev-dependencies]
+check-manifest = "^0.46.0"
+bumpver = "^2021.3.4"
+pytest = "^6.2.0"
+flake8 = "^3.9.0"
+black = "^20.8b1"
+pre-commit = "^2.12.0"
 
 [tool.flake8]
 max-line-length = 88
