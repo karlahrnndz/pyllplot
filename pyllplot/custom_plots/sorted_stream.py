@@ -256,7 +256,3 @@ class SortedStream:
             ),
             yaxis=dict(showgrid=True),
         )
-
-    # def show(self):
-    #     self._generate_area()
-    #     self.fig.show()
