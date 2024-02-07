@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyllplot"
-version = "2024.2.7.0"
+version = "2024.2.7.1"
 description = ""
 authors = ["Karla Hernandez"]
 license = "MIT"
@@ -36,7 +36,8 @@ extend-ignore = "E203, W503"
 line-length = 88
 
 [tool.bumpver]
-version_format = "{YYYY}.{M}.{DD}.{patch}"
+version_pattern = "YYYY.MM.DD.PATCH"
+current_version = "2024.2.7.1"
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['version = "{version}"']
