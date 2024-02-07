@@ -18,9 +18,10 @@ data_dict = {
 data_dict["x"] = pd.to_datetime(data_dict["x"])
 
 custom_plot = SortedStream(
-    data=data_dict, pad=0, centered=True, color_dict=None, smooth=True, interp_res=10000
+    data=data_dict, pad=0, centered=True, color_dict=None, smooth=True, interp_res=1000
 )
 
-# custom_plot.fig is a plotly.graph_objects object with the final visualization
+# custom_plot.fig is a plotly.graph_objects object containing the final visualization
+# you can work with it like you would a normal plotly.graph_objects object:
 custom_plot.fig.show()
-pio.write_image(custom_plot.fig, "sorted_stream.svg")
+pio.write_image(custom_plot.fig, file="sorted_stream.svg")
