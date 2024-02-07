@@ -1,1 +1,5 @@
 include pyllplot/custom_plots/sorted_stream.py
+include *.in
+include *.md
+include *.txt
+include *.yaml
