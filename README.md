@@ -1,1 +1,1 @@
-Wrapper for quickly creating Python visualizations for use in Illustrator.
+Wrapper for ly creating Python visualizations for use in Illustrator.
