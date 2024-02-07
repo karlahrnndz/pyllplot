@@ -10,7 +10,10 @@ Welcome to pyllplot's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   introduction
+   installation
+   quickstart
+   sorted_stream
 
 Indices and tables
 ==================
