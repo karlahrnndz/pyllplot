@@ -5,7 +5,7 @@ description = ""
 authors = ["Karla Hernandez"]
 license = "MIT"
 keywords = ["d3", "visualization", "infographic", "data science", "chart", "design"]
-
+include = ["requirements-dev.txt", ".pre-commit-config.yaml", "README.md"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
