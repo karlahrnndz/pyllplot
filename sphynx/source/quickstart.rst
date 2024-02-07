@@ -1,6 +1,6 @@
 
 ***********
-Quick Start
+QuickStart
 ***********
 
 Currently ``pyllplot`` only allows you to create one kind of graph: a ``plotly`` based sorted stream graph (additional data visualization will be added over time).
