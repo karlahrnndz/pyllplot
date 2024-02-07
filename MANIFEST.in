@@ -1,5 +1,0 @@
-include pyllplot/custom_plots/sorted_stream.py
-include .pre-commit-config.yaml
-include MANIFEST.in
-include README.md
-include requirements-dev.txt
