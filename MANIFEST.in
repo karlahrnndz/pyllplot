@@ -1,5 +1,5 @@
 include pyllplot/custom_plots/sorted_stream.py
-include *.in
-include *.md
-include *.txt
-include *.yaml
+include .pre-commit-config.yaml
+include MANIFEST.in
+include README.md
+include requirements-dev.txt
