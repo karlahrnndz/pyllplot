@@ -1,35 +1,94 @@
+
+***********
 Quick Start
-===========
+***********
 
-.. contents:: Table of Contents
-   :local:
+Currently `pyllplot` only allows you to create one kind of graph: a `plotly` based sorted stream graph (additional data visualization will be added over time).
 
-Getting Started
----------------
 
-To quickly get started with pyllplot, follow these steps:
+Sorted Stream Graph
+================
 
-1. Import the `SortedStream` class:
+1. Import the ``SortedStream`` class:
 
    .. code-block:: python
 
       from pyllplot import SortedStream
 
-2. Create an instance of `SortedStream` with your data:
+2. Create a dataset. Your dataset can be a dictionary or a pandas DataFrame, but must contain the following columns/keys: ``['x', 'height', 'label']``:
 
-   .. code-block:: python
+    .. code-block:: python
 
-      # Your data dictionary or DataFrame
-      data = {
-          "x": [ ... ],
-          "height": [ ... ],
-          "label": [ ... ],
-      }
+        import pandas as pd
 
-      custom_plot = SortedStream(data=data, pad=0, centered=True, color_dict=None, smooth=True, interp_res=1000)
+        data_dict = {
+          "x": [
+              "2022-01-01",
+              "2022-01-02",
+              "2022-01-03",
+              "2022-01-01",
+              "2022-01-02",
+              "2022-01-03",
+          ],
+          "height": [1, 1, 1, 3, 2, 3],
+          "label": ["lab_1", "lab_1", "lab_1", "lab_2", "lab_2", "lab_2"]}
 
-3. Show the plot:
+        data = data_dict
+        data = pd.DataFrame(data_dict)
+
+5. Create a sorted stream graph based on your data and show the plot:
+
+    .. code-block:: python
+
+        import plotly.io as pio
+        custom_plot = SortedStream(data)
+        custom_plot.fig.show()
+
+5. ``custom_plot.fig`` is an object of type `plotly.graph_objects` containing the final visualization (you can work with it like you would a normal `plotly.graph_objects` object):
 
    .. code-block:: python
 
       custom_plot.fig.show()
+      pio.write_image(custom_plot.fig, file="sorted_stream.svg")
+
+6. The values for 'x' must be strings, numeric, categorical, boolean, or datetime. The values for 'height' must be non-negative.
+
+Examples
+================
+
+    .. code-block:: python
+
+        from pyllplot import SortedStream
+        import plotly.io as pio
+        import pandas as pd
+
+        # Example where the values in x are datetime objects
+        data_dict = {
+            "x": [
+                "2022-01-01",
+                "2022-01-02",
+                "2022-01-03",
+                "2022-01-01",
+                "2022-01-02",
+                "2022-01-03",
+            ],
+            "height": [1, 1, 1, 3, 2, 3],
+            "label": ["lab_1", "lab_1", "lab_1", "lab_2", "lab_2", "lab_2"],
+        }
+        data_dict["x"] = pd.to_datetime(data_dict["x"])
+
+        custom_plot = SortedStream(
+            data=data_dict, pad=0, centered=True, color_dict=None, smooth=True, interp_res=1000
+        )
+
+        # custom_plot.fig is a plotly.graph_objects object containing the final visualization
+        # you can work with it like you would a normal plotly.graph_objects object:
+        custom_plot.fig.show()
+        pio.write_image(custom_plot.fig, file="sorted_stream.svg")
+
+
+Here's the result:
+
+    .. image:: https://source.unsplash.com/200x200/daily?cute+puppy
+        :height: 200
+        :width: 200

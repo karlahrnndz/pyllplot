@@ -1,14 +1,8 @@
 Installation
 ============
 
-.. contents:: Table of Contents
-   :local:
-
-Installing pyllplot
---------------------
-
-To install pyllplot, you can use pip:
+To install ``pyllplot``, you can use pip to install directly for GitHub:
 
 .. code-block:: bash
 
-   pip install pyllplot
+   pip install git+https://github.com/karlahrnndz/pyllplot.git
