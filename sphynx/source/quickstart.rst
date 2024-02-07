@@ -86,9 +86,3 @@ Examples
         custom_plot.fig.show()
         pio.write_image(custom_plot.fig, file="sorted_stream.svg")
 
-
-Here's the result:
-
-    .. image:: https://source.unsplash.com/200x200/daily?cute+puppy
-        :height: 200
-        :width: 200
