@@ -78,7 +78,7 @@
 
   <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h1>
-<p>Currently <cite>pyllplot</cite> only allows you to create one kind of graph: a <cite>plotly</cite> based sorted stream graph (additional data visualization will be added over time).</p>
+<p>Currently <code class="docutils literal notranslate"><span class="pre">pyllplot</span></code> only allows you to create one kind of graph: a <code class="docutils literal notranslate"><span class="pre">plotly</span></code> based sorted stream graph (additional data visualization will be added over time).</p>
 <section id="sorted-stream-graph">
 <h2>Sorted Stream Graph<a class="headerlink" href="#sorted-stream-graph" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
@@ -122,7 +122,7 @@
 </li>
 </ol>
 <ol class="arabic" start="5">
-<li><p><code class="docutils literal notranslate"><span class="pre">custom_plot.fig</span></code> is an object of type <cite>plotly.graph_objects</cite> containing the final visualization (you can work with it like you would a normal <cite>plotly.graph_objects</cite> object):</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom_plot.fig</span></code> is an object of type <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code> containing the final visualization (you can work with it like you would a normal <code class="docutils literal notranslate"><span class="pre">plotly.graph_objects</span></code> object):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">custom_plot</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="n">custom_plot</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;sorted_stream.svg&quot;</span><span class="p">)</span>
 </pre></div>
@@ -157,8 +157,6 @@
     <span class="n">data</span><span class="o">=</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">centered</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">interp_res</span><span class="o">=</span><span class="mi">1000</span>
 <span class="p">)</span>
 
-<span class="c1"># custom_plot.fig is a plotly.graph_objects object containing the final visualization</span>
-<span class="c1"># you can work with it like you would a normal plotly.graph_objects object:</span>
 <span class="n">custom_plot</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="n">custom_plot</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;sorted_stream.svg&quot;</span><span class="p">)</span>
 </pre></div>

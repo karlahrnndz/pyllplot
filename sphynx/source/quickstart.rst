@@ -3,11 +3,11 @@
 Quick Start
 ***********
 
-Currently `pyllplot` only allows you to create one kind of graph: a `plotly` based sorted stream graph (additional data visualization will be added over time).
+Currently ``pyllplot`` only allows you to create one kind of graph: a ``plotly`` based sorted stream graph (additional data visualization will be added over time).
 
 
 Sorted Stream Graph
-================
+===================
 
 1. Import the ``SortedStream`` class:
 
@@ -44,7 +44,7 @@ Sorted Stream Graph
         custom_plot = SortedStream(data)
         custom_plot.fig.show()
 
-5. ``custom_plot.fig`` is an object of type `plotly.graph_objects` containing the final visualization (you can work with it like you would a normal `plotly.graph_objects` object):
+5. ``custom_plot.fig`` is an object of type ``plotly.graph_objects`` containing the final visualization (you can work with it like you would a normal ``plotly.graph_objects`` object):
 
    .. code-block:: python
 

@@ -13,4 +13,3 @@ Welcome to pyllplot's documentation!
    introduction
    installation
    quickstart
-   sorted_stream
